@@ -1,0 +1,56 @@
+services:
+
+  # ==========================================================
+  # LOCALSTACK
+  # ==========================================================
+  # Simula serviços da AWS localmente.
+  # Neste projeto utilizaremos principalmente o DynamoDB.
+  # ==========================================================
+
+  localstack:
+
+    # Imagem oficial do LocalStack
+    image: localstack/localstack:latest
+
+    # Nome do container
+    container_name: agente_localstack
+
+    # Portas utilizadas pelo LocalStack
+    ports:
+      - "4566:4566"
+
+    # Variáveis de ambiente
+    environment:
+
+      # Serviços que queremos utilizar
+      - SERVICES=dynamodb
+
+      # Região padrão
+      - AWS_DEFAULT_REGION=us-east-1
+
+      # Desativa algumas verificações
+      - DEBUG=0
+
+      # Token de autenticação do LocalStack (necessário para algumas funcionalidades)
+      - LOCALSTACK_AUTH_TOKEN=ls-FAtuneQI-Bica-Poru-4263-8388KOfO2f2a
+
+    # Volume para manter os dados do LocalStack
+    volumes:
+
+      # Diretório utilizado pelo LocalStack
+      - localstack_data:/var/lib/localstack
+
+      # Permite que o Docker seja acessado pelo LocalStack
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    # Reinicia automaticamente caso o container pare
+    restart: unless-stopped
+
+
+# ==========================================================
+# VOLUMES
+# ==========================================================
+
+volumes:
+
+  localstack_data:

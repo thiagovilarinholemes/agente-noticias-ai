@@ -1,0 +1,7 @@
+boto3
+scrapy
+streamlit
+pandas
+python-dotenv
+beautifulsoup4
+lxml
